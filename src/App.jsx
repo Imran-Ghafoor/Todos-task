@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "./components/Head";
 import Task from "./components/Task";
 import React from "react";
+import InputForm from "./components/InputForm";
 
 function App() {
   const data = [
@@ -18,15 +19,23 @@ function App() {
       title: "Do you like tailwind",
     },
   ];
-  const [list, setList] = useState(data);
+  const [list, setList] = useState([]);
 
-  let newEle = {
-    id: 5,
-    title: "ok ok this one is added",
-  };
+  // let newEle = {
+  //   id: 5,
+  //   title: "ok ok this one is added",
+  // };
 
-  const addEleIntoList = () => {
-    let newArr = [...list, newEle];
+  const addEleIntoList = (todos, homework) => {
+    const myDate = new Date();
+
+    let myNewObj = {
+      id: myDate,
+      title: todos,
+      isCompleted: false,
+    };
+
+    let newArr = [...list, myNewObj];
     setList(newArr);
   };
   const deleteEle = (x) => {
@@ -38,15 +47,14 @@ function App() {
         tittle={"ToDo App with Hadi"}
         para={"Hi, Im ToDo Let's Fun With me!"}
       />
-      <button
-        onClick={addEleIntoList}
-        className="flex flex-col justify-center items-center text-center text-white "
-      >
-        Add Task
-      </button>
+      <InputForm addEleIntoList={addEleIntoList} />
       {list.map((x, index) => (
         <React.Fragment key={index}>
-          <Task title={x.title} removeEle={() => deleteEle(x.id)} />
+          <Task
+            title={x.title}
+            isCompleted={x.isCompleted}
+            removeEle={() => deleteEle(x.id)}
+          />
         </React.Fragment>
       ))}
     </div>
