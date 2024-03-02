@@ -32,7 +32,7 @@ function App() {
     let myNewObj = {
       id: myDate,
       title: todos,
-      isCompleted: false,
+      isCompleted: true,
     };
 
     let newArr = [...list, myNewObj];
