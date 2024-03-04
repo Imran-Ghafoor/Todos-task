@@ -4,11 +4,6 @@ import { useState } from "react";
 const InputForm = ({ addEleIntoList }) => {
   const [inputValue, setInputValue] = useState("");
 
-  const emptyTodo = () => {
-    if (todos === " ") {
-      console.log("todo is empty");
-    } else inputValue;
-  };
   return (
     <div className="flex justify-center items-center mt-12">
       <input

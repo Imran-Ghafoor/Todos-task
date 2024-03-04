@@ -26,13 +26,13 @@ function App() {
   //   title: "ok ok this one is added",
   // };
 
-  const addEleIntoList = (todos, homework) => {
+  const addEleIntoList = (todos) => {
     const myDate = new Date();
 
     let myNewObj = {
       id: myDate,
       title: todos,
-      isCompleted: true,
+      isCompleted: false,
     };
 
     let newArr = [...list, myNewObj];
@@ -41,6 +41,17 @@ function App() {
   const deleteEle = (x) => {
     setList(list.filter((e) => e.id !== x));
   };
+
+  const makeCompleted = (x) => {
+    // alert(x);
+    const updatedList = list.map((i) => {
+      if (i.id === x) {
+        return { ...i, isCompleted: true };
+      }
+    });
+    setList(updatedList);
+  };
+
   return (
     <div>
       <Head
@@ -53,6 +64,7 @@ function App() {
           <Task
             title={x.title}
             isCompleted={x.isCompleted}
+            makeCompleted={() => makeCompleted(x.id)}
             removeEle={() => deleteEle(x.id)}
           />
         </React.Fragment>
