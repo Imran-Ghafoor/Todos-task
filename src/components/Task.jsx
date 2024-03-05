@@ -6,7 +6,7 @@ const Task = ({ title, removeEle, isCompleted, makeCompleted }) => {
   return (
     <div className="flex  justify-center text-blue-900 font-semibold">
       <div className="min-w-[450px] flex justify-between mt-10 bg-yellow-500 p-3 rounded-lg">
-        <h2 className=" text-3xl line-through ">
+        <h2>
           {isCompleted ? "yes" : "no"} {title}
         </h2>
 

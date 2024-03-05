@@ -19,12 +19,7 @@ function App() {
       title: "Do you like tailwind",
     },
   ];
-  const [list, setList] = useState([]);
-
-  // let newEle = {
-  //   id: 5,
-  //   title: "ok ok this one is added",
-  // };
+  const [list, setList] = useState(data);
 
   const addEleIntoList = (todos) => {
     const myDate = new Date();
@@ -47,6 +42,8 @@ function App() {
     const updatedList = list.map((i) => {
       if (i.id === x) {
         return { ...i, isCompleted: true };
+      } else {
+        return { ...i };
       }
     });
     setList(updatedList);
