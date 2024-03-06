@@ -1,11 +1,8 @@
 import React from "react";
-import { useState } from "react";
 
-const InputForm = ({ addEleIntoList }) => {
-  const [inputValue, setInputValue] = useState("");
-
+const InputForm = ({ addEleIntoList, inputValue, setInputValue }) => {
   return (
-    <div className="flex justify-center items-center mt-12">
+    <div className="grid justify-items-center gap-2 mt-24 mx-auto">
       <input
         className="rounded-lg text-start font-semibold text-blue-900 h-10 p-2 hover:scale-105 border-none text-xl"
         value={inputValue}
@@ -14,10 +11,10 @@ const InputForm = ({ addEleIntoList }) => {
         placeholder="Please enter your todo"
       />
       <button
-        className="text-white mx-4 bg-gray-700 shadow-md shadow-gray-500 rounded-md p-1 font-bold hover:bg-green-500 "
+        className="text-gray-300 mx-4 bg-gray-700 shadow-md shadow-gray-500 rounded-md p-1 font-bold hover:bg-green-500 w-32 "
         onClick={() => addEleIntoList(inputValue)}
       >
-        Add Todo
+        Add OR Update
       </button>
     </div>
   );
