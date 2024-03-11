@@ -1,6 +1,7 @@
 import { FaSkullCrossbones } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa";
 import React from "react";
+import { motion } from "framer-motion";
 
 const Task = ({
   title,
@@ -11,7 +12,9 @@ const Task = ({
   updateItem,
 }) => {
   return (
-    <div
+    <motion.div
+      drag
+      dragConstraints={{ top: 0, bottom: 200, right: 300, left: 0 }}
       onClick={clickItem}
       className="flex justify-center items-center text-blue-900 font-semibold text-2xl "
     >
@@ -36,7 +39,7 @@ const Task = ({
           <button onClick={updateItem}>Update</button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

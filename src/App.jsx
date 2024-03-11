@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "./components/Head";
 import Task from "./components/Task";
 import InputForm from "./components/InputForm";
@@ -19,8 +19,15 @@ function App() {
       title: "Do you like tailwind",
     },
   ];
+
   const [list, setList] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [darkMode, SetDarkMode] = useState(false);
+
+  useEffect(() => {
+    let mode = darkMode ? "dark" : "light";
+    document.documentElement.classList.toggle(mode);
+  }, [darkMode]);
 
   const addEleIntoList = (todos) => {
     const myDate = new Date();
@@ -34,9 +41,14 @@ function App() {
     let newArr = [...list, myNewObj];
     setList(newArr);
     setInputValue("");
+    localStorage.setItem("list", JSON.stringify(newArr));
   };
   const deleteEle = (x) => {
-    setList(list.filter((e) => e.id !== x));
+    let updated = list.filter((e) => e.id !== x);
+    setList(updated);
+
+    localStorage.removeItem("list");
+    localStorage.setItem("list", JSON.stringify(updated));
   };
 
   const makeCompleted = (x) => {
@@ -50,6 +62,8 @@ function App() {
       }
     });
     setList(updatedList);
+    localStorage.removeItem("list");
+    localStorage.setItem("item", JSON.stringify(updatedList));
   };
   const clickItem = (item) => {
     setInputValue(item.title);
@@ -65,31 +79,46 @@ function App() {
     });
     setList(updatedList);
     setInputValue("");
+    localStorage.removeItem(list);
+    localStorage.getItem(list, JSON.stringify(updatedList));
   };
 
   return (
-    <div className="">
-      <Head
-        tittle={"ToDo App with Hadi"}
-        para={"Hi, Im ToDo Let's Fun With me!"}
-      />
-      <InputForm
-        addEleIntoList={addEleIntoList}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-      />
-      {list.map((x, index) => (
-        <React.Fragment key={index}>
-          <Task
-            updateItem={() => updateItem(x.id)}
-            clickItem={() => clickItem(x)}
-            title={x.title}
-            isCompleted={x.isCompleted}
-            makeCompleted={() => makeCompleted(x.id)}
-            removeEle={() => deleteEle(x.id)}
-          />
-        </React.Fragment>
-      ))}
+    <div>
+      <button
+        onClick={() => {
+          SetDarkMode(!darkMode);
+        }}
+        className="bg-black dark:bg-black absolute right-10 top-10 text-white"
+      >
+        {!darkMode ? "Light" : "Dark"}
+        Dark Mode
+      </button>
+      <div>
+        <Head
+          tittle={"ToDo App with Hadi"}
+          para={"Hi, Im ToDo Let's Fun With me!"}
+        />
+
+        <InputForm
+          addEleIntoList={addEleIntoList}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+        />
+
+        {list.map((x, index) => (
+          <React.Fragment key={index}>
+            <Task
+              updateItem={() => updateItem(x.id)}
+              clickItem={() => clickItem(x)}
+              title={x.title}
+              isCompleted={x.isCompleted}
+              makeCompleted={() => makeCompleted(x.id)}
+              removeEle={() => deleteEle(x.id)}
+            />
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 }
